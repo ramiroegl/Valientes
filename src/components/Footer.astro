@@ -1,0 +1,47 @@
+<footer>
+  <div class="footer-content">
+    <div class="logos">
+      {/* <img src="/images/conquistadores-logo.png" alt="Conquistadores Pentecostales" class="logo-small" /> */}
+      <p>Conquistadores Pentecostales</p>
+      <p>IPUC San Sebastián</p>
+      {/* <img src="/images/ipuc-logo.png" alt="IPUC San Sebastián" class="logo-small" /> */}
+    </div>
+    <p>&copy; {new Date().getFullYear()} Valientes 2025. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  footer {
+    width: 100%;
+    padding: 1.5rem 0;
+    background-color: rgba(0, 0, 0, 0.3); /* Un fondo semitransparente */
+    color: var(--color-white);
+    text-align: center;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+    z-index: 10;
+  }
+
+  .footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+
+  .logo-small {
+    height: 40px; /* Ajusta el tamaño según tus logos */
+    width: auto;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+  }
+</style>

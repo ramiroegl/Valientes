@@ -1,11 +1,147 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+// Puedes definir variables aquí para el texto si lo necesitas
+const eventTitle = "CAMPAMENTO";
+const mainLogoText = "VALIENTES";
+const eventYear = "2025";
+const comingSoonText = "MUY PRONTO";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="Campamento Valientes 2025 - Muy Pronto" description="Página oficial del Campamento Valientes 2025 de Conquistadores Pentecostales IPUC San Sebastián. ¡Prepárate!">
+  <main>
+    <Header />
+    <section class="hero-section">
+      <h1 class="event-title">{eventTitle}</h1>
+      <div class="main-logo-container">
+        <span class="main-logo-text">{mainLogoText}</span>
+        </div>
+      <p class="event-year">{eventYear}</p>
+      <h2 class="coming-soon">{comingSoonText}</h2>
+    </section>
+    <Footer />
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    flex-grow: 1; /* Permite que el main ocupe el espacio disponible */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center;
+    width: 100%;
+  }
+
+  .hero-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 1rem;
+    position: relative;
+    z-index: 1; /* Para asegurar que el contenido esté sobre el fondo */
+    flex-grow: 1; /* Permite que esta sección ocupe el espacio central */
+  }
+
+  .event-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--color-secondary-light); /* Amarillo */
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .main-logo-container {
+    position: relative;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .main-logo-text {
+    font-size: clamp(4rem, 15vw, 10rem); /* VALIENTES grande y responsivo */
+    font-weight: 900;
+    color: var(--color-white);
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+    line-height: 1;
+    position: relative; /* Para la espada */
+  }
+
+  /* ESTILO PARA LA ESPADA (si no puedes extraerla como imagen separada) */
+  /* Esta es una aproximación. Lo ideal sería tener la imagen de la espada */
+  .main-logo-text::after {
+    content: '';
+    position: absolute;
+    top: -30%; /* Ajusta la posición de la espada */
+    right: -10%; /* Ajusta la posición de la espada */
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent; /* Parte superior de la espada */
+    border-right: 20px solid transparent; /* Parte superior de la espada */
+    border-bottom: 60px solid var(--color-secondary-light); /* Hoja de la espada */
+    transform: rotate(45deg); /* Ángulo de la espada */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+    z-index: -1; /* Para que esté detrás del texto */
+  }
+
+
+  /* Si tienes la imagen de la espada (valientes-logo.png), usa esto en lugar de ::after */
+  /* .valientes-image-logo {
+    max-width: 80%;
+    height: auto;
+    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.7));
+  } */
+
+
+  .event-year {
+    font-size: clamp(2rem, 8vw, 4rem);
+    color: var(--color-white);
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .coming-soon {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: var(--color-secondary-light); /* Amarillo */
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Media queries para responsividad */
+  @media (max-width: 768px) {
+    .event-title {
+      margin-bottom: 1rem;
+    }
+
+    .main-logo-text {
+      font-size: clamp(3rem, 12vw, 8rem);
+    }
+
+    .event-year {
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .coming-soon {
+      font-size: clamp(2rem, 7vw, 4rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-section {
+      padding: 3rem 0.5rem;
+    }
+  }
+</style>
