@@ -1,5 +1,9 @@
 ---
-// src/pages/index.astro
+import Logo from '../assets/logo.png';
+import FormularioQR from '../assets/formulario.svg';
+import Audreys from '../assets/Audreys_Peinado.jpg';
+import Wilmar from '../assets/Wilmar_Jaimes.jpg';
+import Joel from '../assets/Joel_Pazo.jpg';
 ---
 
 <!doctype html>
@@ -475,7 +479,7 @@
           <div class="speaker-image">
             <!-- Reemplaza 'ruta/a/audreys.jpg' con la ruta real de la imagen -->
             <img
-              src="/src/assets/Audreys_Peinado.jpg"
+              src={Audreys.src}
               alt="Audreys Peinado"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
@@ -493,7 +497,7 @@
           <div class="speaker-image">
             <!-- Reemplaza 'ruta/a/wilmar.jpg' con la ruta real de la imagen -->
             <img
-              src="/src/assets/Wilmar_Jaimes.jpg"
+              src={Wilmar.src}
               alt="Wilmar Jaimes"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
@@ -511,7 +515,7 @@
           <div class="speaker-image">
             <!-- Reemplaza 'ruta/a/joel.jpg' con la ruta real de la imagen -->
             <img
-              src="/src/assets/Joel_Pazo.jpg"
+              src={Joel.src}
               alt="Joel Pazo"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
             />
@@ -537,7 +541,7 @@
         <div class="qr-code">
           <div>
             <img
-              src="/src/assets/formulario.svg"
+              src={FormularioQR.src}
               alt="Formulario QR"
               style="width: 120px; height: 120px; border-radius: 10px;"
             />
@@ -556,7 +560,7 @@
         <div class="logo-placeholder">
           <!-- Reemplaza 'ruta/a/logo-organizacion.png' con la ruta real del logo -->
           <img
-            src="/src/assets/logo.png"
+            src={Logo.src}
             alt="Logo Organización"
             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
           />
