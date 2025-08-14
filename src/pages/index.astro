@@ -1,147 +1,569 @@
 ---
-import BaseLayout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-
-// Puedes definir variables aquí para el texto si lo necesitas
-const eventTitle = "CAMPAMENTO";
-const mainLogoText = "VALIENTES";
-const eventYear = "2025";
-const comingSoonText = "MUY PRONTO";
+// src/pages/index.astro
 ---
 
-<BaseLayout title="Campamento Valientes 2025 - Muy Pronto" description="Página oficial del Campamento Valientes 2025 de Conquistadores Pentecostales IPUC San Sebastián. ¡Prepárate!">
-  <main>
-    <Header />
-    <section class="hero-section">
-      <h1 class="event-title">{eventTitle}</h1>
-      <div class="main-logo-container">
-        <span class="main-logo-text">{mainLogoText}</span>
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campamento Juvenil Valientes 2025</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(
+          135deg,
+          #1a4b4b 0%,
+          #2d6a4f 50%,
+          #40916c 100%
+        );
+        min-height: 100vh;
+        color: white;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        position: relative;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .title {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(2rem, 5vw, 4rem);
+        color: #95d5b2;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        letter-spacing: 0.1em;
+        margin-bottom: 2rem;
+      }
+
+      .main-logo-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 2rem 0;
+      }
+
+      .main-logo-header img {
+        max-width: 400px;
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
+      }
+
+      @media (max-width: 768px) {
+        .main-logo-header img {
+          max-width: 300px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-logo-header img {
+          max-width: 250px;
+        }
+      }
+
+      .speakers-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .speaker-card {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .speaker-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      }
+
+      .speaker-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        background: linear-gradient(45deg, #2d6a4f, #95d5b2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3rem;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .speaker-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 50%;
+      }
+
+      .speaker-name {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #95d5b2;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .speaker-role {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+
+      .main-logo {
+        text-align: center;
+        margin: 3rem 0;
+        position: relative;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .valientes-logo {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(6rem, 15vw, 12rem);
+        color: #809419;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        letter-spacing: 0.2em;
+        font-weight: 400;
+        opacity: 0.15;
+        z-index: 1;
+        white-space: nowrap;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .valientes-logo-front {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(3rem, 8vw, 6rem);
+        color: #809419;
+        position: relative;
+        z-index: 2;
+        letter-spacing: 0.15em;
+        font-weight: 400;
+        text-shadow:
+          2px 2px 4px rgba(0, 0, 0, 0.3),
+          0 0 10px rgba(128, 148, 25, 0.3);
+        margin-bottom: 0.5rem;
+      }
+
+      .year {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(2rem, 5vw, 3rem);
+        color: #809419;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+        font-weight: 400;
+      }
+
+      .event-details {
+        text-align: center;
+        margin: 3rem 0;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 2rem;
+        border-radius: 15px;
+        backdrop-filter: blur(10px);
+      }
+
+      .date {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        color: #95d5b2;
+        margin-bottom: 1rem;
+        text-shadow:
+          0 0 10px #95d5b2,
+          0 0 20px #95d5b2,
+          0 0 30px #95d5b2,
+          0 0 40px #40916c;
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      @keyframes glow {
+        from {
+          text-shadow:
+            0 0 10px #95d5b2,
+            0 0 20px #95d5b2,
+            0 0 30px #95d5b2,
+            0 0 40px #40916c;
+        }
+        to {
+          text-shadow:
+            0 0 15px #95d5b2,
+            0 0 25px #95d5b2,
+            0 0 35px #95d5b2,
+            0 0 50px #40916c,
+            0 0 60px #40916c;
+        }
+      }
+
+      .location {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .registration-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 3rem;
+        margin: 3rem 0;
+        flex-wrap: wrap;
+      }
+
+      .qr-code {
+        width: 150px;
+        height: 150px;
+        background: white;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        color: #333;
+        text-align: center;
+        padding: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .registration-button {
+        background: linear-gradient(45deg, #95d5b2, #40916c);
+        color: white;
+        padding: 1rem 2rem;
+        border: none;
+        border-radius: 50px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .registration-button:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        background: linear-gradient(45deg, #40916c, #95d5b2);
+      }
+
+      .registration-text {
+        font-family: "Bebas Neue", cursive;
+        font-size: clamp(2rem, 5vw, 3rem);
+        color: #95d5b2;
+        text-align: center;
+        margin: 2rem 0;
+        text-shadow:
+          0 0 10px #95d5b2,
+          0 0 20px #95d5b2,
+          0 0 30px #95d5b2,
+          0 0 40px #40916c,
+          2px 2px 4px rgba(0, 0, 0, 0.5);
+        animation: neonPulse 3s ease-in-out infinite;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+      }
+
+      @keyframes neonPulse {
+        0%,
+        100% {
+          text-shadow:
+            0 0 10px #95d5b2,
+            0 0 20px #95d5b2,
+            0 0 30px #95d5b2,
+            0 0 40px #40916c,
+            2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        50% {
+          text-shadow:
+            0 0 15px #95d5b2,
+            0 0 25px #95d5b2,
+            0 0 35px #95d5b2,
+            0 0 50px #40916c,
+            0 0 60px #40916c,
+            2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+      }
+
+      .footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .logo-placeholder {
+        width: 80px;
+        height: 80px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .logo-placeholder img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+      }
+
+      .logo-fallback {
+        color: #95d5b2;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .organization-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #95d5b2;
+        letter-spacing: 0.1em;
+      }
+
+      @media (max-width: 768px) {
+        .speakers-section {
+          grid-template-columns: 1fr;
+        }
+
+        .registration-section {
+          flex-direction: column;
+          gap: 2rem;
+        }
+
+        .footer {
+          flex-direction: column;
+          gap: 1rem;
+        }
+      }
+
+      /* Efectos de fondo animados */
+      .background-shapes {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .shape {
+        position: absolute;
+        background: rgba(149, 213, 178, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
+
+      .shape:nth-child(1) {
+        width: 100px;
+        height: 100px;
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape:nth-child(2) {
+        width: 150px;
+        height: 150px;
+        top: 60%;
+        right: 10%;
+        animation-delay: 2s;
+      }
+
+      .shape:nth-child(3) {
+        width: 80px;
+        height: 80px;
+        top: 80%;
+        left: 20%;
+        animation-delay: 4s;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-shapes">
+      <div class="shape"></div>
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+
+    <div class="container">
+      <header class="header">
+        <h1 class="title">CAMPAMENTO JUVENIL</h1>
+
+        <!-- Logo principal Valientes 2025 -->
+        <div class="main-logo-header">
+          <!-- Reemplaza 'ruta/a/valientes-logo.png' con la ruta real de tu logo -->
+          <img
+            src="/src/assets/logo.png"
+            alt="Valientes 2025"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          />
+          <div style="display:none;">
+            <div
+              style="font-family: 'Bebas Neue', cursive; font-size: clamp(3rem, 8vw, 6rem); color: #809419; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);"
+            >
+              VALIENTES
+            </div>
+            <div
+              style="font-family: 'Bebas Neue', cursive; font-size: clamp(2rem, 5vw, 3rem); color: #809419; text-align: center;"
+            >
+              2025
+            </div>
+          </div>
         </div>
-      <p class="event-year">{eventYear}</p>
-      <h2 class="coming-soon">{comingSoonText}</h2>
-    </section>
-    <Footer />
-  </main>
-</BaseLayout>
+      </header>
 
-<style>
-  main {
-    flex-grow: 1; /* Permite que el main ocupe el espacio disponible */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
-    align-items: center;
-    width: 100%;
-  }
+      <section class="speakers-section">
+        <div class="speaker-card">
+          <div class="speaker-image">
+            <!-- Reemplaza 'ruta/a/audreys.jpg' con la ruta real de la imagen -->
+            <img
+              src="/src/assets/Audreys_Peinado.jpg"
+              alt="Audreys Peinado"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div
+              style="display:none; width: 100%; height: 100%; background: linear-gradient(45deg, #2d6a4f, #95d5b2); border-radius: 50%; align-items: center; justify-content: center; font-size: 3rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"
+            >
+              AP
+            </div>
+          </div>
+          <h3 class="speaker-name">Audreys Peinado</h3>
+          <p class="speaker-role">Cantante</p>
+        </div>
 
-  .hero-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 4rem 1rem;
-    position: relative;
-    z-index: 1; /* Para asegurar que el contenido esté sobre el fondo */
-    flex-grow: 1; /* Permite que esta sección ocupe el espacio central */
-  }
+        <div class="speaker-card">
+          <div class="speaker-image">
+            <!-- Reemplaza 'ruta/a/wilmar.jpg' con la ruta real de la imagen -->
+            <img
+              src="/src/assets/Wilmar_Jaimes.jpg"
+              alt="Wilmar Jaimes"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div
+              style="display:none; width: 100%; height: 100%; background: linear-gradient(45deg, #2d6a4f, #95d5b2); border-radius: 50%; align-items: center; justify-content: center; font-size: 3rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"
+            >
+              WJ
+            </div>
+          </div>
+          <h3 class="speaker-name">Wilmar Jaimes</h3>
+          <p class="speaker-role">Pastor</p>
+        </div>
 
-  .event-title {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    color: var(--color-secondary-light); /* Amarillo */
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    margin-bottom: 2rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  }
+        <div class="speaker-card">
+          <div class="speaker-image">
+            <!-- Reemplaza 'ruta/a/joel.jpg' con la ruta real de la imagen -->
+            <img
+              src="/src/assets/Joel_Pazo.jpg"
+              alt="Joel Pazo"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div
+              style="display:none; width: 100%; height: 100%; background: linear-gradient(45deg, #2d6a4f, #95d5b2); border-radius: 50%; align-items: center; justify-content: center; font-size: 3rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"
+            >
+              JP
+            </div>
+          </div>
+          <h3 class="speaker-name">Joel Pazo</h3>
+          <p class="speaker-role">Cantante</p>
+        </div>
+      </section>
 
-  .main-logo-container {
-    position: relative;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+      <div class="event-details">
+        <div class="date">OCTUBRE 3, 4 Y 5</div>
+        <div class="location">SAN SEBASTIÁN, MAGDALENA</div>
+      </div>
 
-  .main-logo-text {
-    font-size: clamp(4rem, 15vw, 10rem); /* VALIENTES grande y responsivo */
-    font-weight: 900;
-    color: var(--color-white);
-    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
-    line-height: 1;
-    position: relative; /* Para la espada */
-  }
+      <div class="registration-text">INSCRIPCIONES ABIERTAS</div>
 
-  /* ESTILO PARA LA ESPADA (si no puedes extraerla como imagen separada) */
-  /* Esta es una aproximación. Lo ideal sería tener la imagen de la espada */
-  .main-logo-text::after {
-    content: '';
-    position: absolute;
-    top: -30%; /* Ajusta la posición de la espada */
-    right: -10%; /* Ajusta la posición de la espada */
-    width: 0;
-    height: 0;
-    border-left: 20px solid transparent; /* Parte superior de la espada */
-    border-right: 20px solid transparent; /* Parte superior de la espada */
-    border-bottom: 60px solid var(--color-secondary-light); /* Hoja de la espada */
-    transform: rotate(45deg); /* Ángulo de la espada */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    opacity: 0.8;
-    z-index: -1; /* Para que esté detrás del texto */
-  }
+      <div class="registration-section">
+        <div class="qr-code">
+          <div>
+            <img
+              src="/src/assets/formulario.svg"
+              alt="Formulario QR"
+              style="width: 120px; height: 120px; border-radius: 10px;"
+            />
+          </div>
+        </div>
 
+        <a
+          href="https://forms.gle/DoxCkzXMSYSzWxaT7"
+          class="registration-button"
+        >
+          Regístrate Aquí
+        </a>
+      </div>
 
-  /* Si tienes la imagen de la espada (valientes-logo.png), usa esto en lugar de ::after */
-  /* .valientes-image-logo {
-    max-width: 80%;
-    height: auto;
-    filter: drop-shadow(4px 4px 10px rgba(0, 0, 0, 0.7));
-  } */
-
-
-  .event-year {
-    font-size: clamp(2rem, 8vw, 4rem);
-    color: var(--color-white);
-    font-weight: bold;
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  }
-
-  .coming-soon {
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    color: var(--color-secondary-light); /* Amarillo */
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-  }
-
-  /* Media queries para responsividad */
-  @media (max-width: 768px) {
-    .event-title {
-      margin-bottom: 1rem;
-    }
-
-    .main-logo-text {
-      font-size: clamp(3rem, 12vw, 8rem);
-    }
-
-    .event-year {
-      font-size: clamp(1.8rem, 6vw, 3rem);
-      margin-top: 0.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .coming-soon {
-      font-size: clamp(2rem, 7vw, 4rem);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hero-section {
-      padding: 3rem 0.5rem;
-    }
-  }
-</style>
+      <footer class="footer">
+        <div class="logo-placeholder">
+          <!-- Reemplaza 'ruta/a/logo-organizacion.png' con la ruta real del logo -->
+          <img
+            src="/src/assets/logo.png"
+            alt="Logo Organización"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+          />
+          <div class="logo-fallback" style="display:none;">LOGO</div>
+        </div>
+        <div class="organization-name">UNÁNIMES</div>
+      </footer>
+    </div>
+  </body>
+</html>
